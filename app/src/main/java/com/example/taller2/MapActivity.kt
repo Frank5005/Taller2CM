@@ -84,17 +84,18 @@ class MapActivity : AppCompatActivity() {
 
     private val mLocationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
-            val actualPosition = GeoPoint(locationResult.lastLocation.latitude, locationResult.lastLocation.longitude)
+            val actualPosition =
+                locationResult.lastLocation?.let { GeoPoint(it.latitude, locationResult.lastLocation!!.longitude) }
             if(!positionTracker.initialized){
                 binding.map.controller.setCenter(actualPosition)
                 binding.map.controller.setZoom(MAP_ZOOM)
-                positionMarker = setMarker(actualPosition, getString(R.string.your_pos))
+                positionMarker = actualPosition?.let { setMarker(it, getString(R.string.your_pos)) }!!
                 binding.myLocationButton.isVisible = true
                 binding.otherApiImageButton.isVisible = true
                 binding.resetImageButton.isVisible = true
                 binding.drawImageButton.isVisible = true
             }
-            if(positionTracker.updateLocation(actualPosition)){
+            if(actualPosition?.let { positionTracker.updateLocation(it) } == true){
                 CoroutineScope(Dispatchers.IO).launch{
                     StorageManager.saveLocation(getFile(), positionTracker)
                 }
