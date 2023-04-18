@@ -32,13 +32,6 @@ class ImageUploadActivity : AppCompatActivity() {
         private const val CAPTURE_REQUEST_CODE = 4
     }
 
-    //private val cameraPermission = registerForActivityResult(ActivityResultContracts.TakePicture()){
-        //if(it){
-            //setImage(uriCamera)
-        //}
-    //}
-    //private lateinit var uriCamera: Uri
-
     private lateinit var binding: ActivityImageUploadBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,9 +56,6 @@ class ImageUploadActivity : AppCompatActivity() {
             }
         }
         binding.cameraButton.setOnClickListener {
-            //val file = File(filesDir, "picFromCamera")
-            //uriCamera = FileProvider.getUriForFile(baseContext, applicationContext.packageName+".fileprovider", file)
-            //cameraPermission.launch(uriCamera)
             val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
             if(permissionCheck != PackageManager.PERMISSION_GRANTED){
                 //No tiene el permiso, pedirlo
@@ -77,11 +67,6 @@ class ImageUploadActivity : AppCompatActivity() {
             }
         }
     }
-
-
-    //private fun setImage(uri: Uri){
-        //binding.imageImageview.setImageURI(uri)
-    //}
 
     fun takePicture(){
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)

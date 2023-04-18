@@ -6,5 +6,7 @@
     <string name="your_pos">Tu posición</string>
 
     <style name="your_position">Tu posición</style>
+
     <string name="distance_between_points">La distancia es de: %1$.3f kms</string>
+    <string name="contacts">Contactos</string>
 </resources>
